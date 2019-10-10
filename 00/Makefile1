@@ -1,1 +1,9 @@
+CC=g++
 
+all: 
+
+sum_by_rows: sum_by_rows.cpp
+  $(CC) sum_by_rows.cpp -o sum_by_rows --std=c++11 -O2
+  
+clean:
+    rm -rf *.o count_by_rows
