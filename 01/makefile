@@ -13,7 +13,7 @@ run:
 	./main
 
 test:
-	python3 ./check.py
+	python3 ./test.py
 
 clean:
 	rm -rf *.o
