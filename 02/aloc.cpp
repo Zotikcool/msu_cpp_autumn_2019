@@ -11,7 +11,7 @@ public:
             buf = nullptr;
         }
         else {
-            buf = new char(maxSize);
+            buf = new char[maxSize];
         }
         totalSize = maxSize;
         shift = 0;
@@ -33,7 +33,7 @@ public:
 
     ~LinearAllocator(){
         if (buf != nullptr) {
-            delete buf;
+            delete[] buf;
         }
     }
 
