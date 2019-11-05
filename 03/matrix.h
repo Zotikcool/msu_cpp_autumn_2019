@@ -13,23 +13,23 @@ public:
 
     const int& operator[](int i) const
     {
-        if (i > row_len) {
+        if (i >= row_len) {
             throw std::out_of_range("Matrix does not have as many columns");
         }
-        return row[i - 1];
+        return row[i];
     }
 
     int& operator[](int i)
     {
-        if (i > row_len) {
+        if (i >= row_len) {
             throw std::out_of_range("Matrix does not have as many columns");
         }
-        return row[i - 1];
+        return row[i];
     }
 
     void operator*=(int n)
     {
-        for (int i = 0; i < row_len; i++){
+        for (size_t i = 0; i < row_len; i++){
             row[i] *= n;
         }
     }
@@ -46,7 +46,7 @@ public:
 
     Matrix(int rows, int cols): rows(rows), cols(cols), rows_array(new Row*[rows]) {
 
-        for (int i = 0; i < rows; i++) {
+        for (size_t i = 0; i < rows; i++) {
             rows_array[i] = new Row(cols);
         }
     }
@@ -61,23 +61,23 @@ public:
 
     const Row& operator[](int n) const
     {
-        if (n > rows) {
+        if (n >= rows) {
             throw std::out_of_range("Matrix does not have as many rows");
         }
-        return *rows_array[n - 1];
+        return *rows_array[n];
     }
 
     Row& operator[](int n)
     {
-        if (n > rows) {
+        if (n >= rows) {
             throw std::out_of_range("Matrix does not have as many rows");
         }
-        return *rows_array[n - 1];
+        return *rows_array[n];
     }
 
-    const Matrix& operator*=(int n) const
+    Matrix& operator*=(int n)
     {
-        for (int i = 0; i < rows; i++){
+        for (size_t i = 0; i < rows; i++){
             *rows_array[i] *= n;
         }
         return *this;
@@ -87,8 +87,8 @@ public:
     {
         if (this == &other)
             return true;
-        for (int i = 1; i <= rows; ++i) {
-            for (int j = 1; j <= cols; j++) {
+        for (size_t i = 0; i < rows; ++i) {
+            for (size_t j = 0; j < cols; j++) {
                 if ((*this)[i][j] != other[i][j])
                     return false;
             }
@@ -98,14 +98,18 @@ public:
 
     bool operator!=(const Matrix& other) const
     {
-        if (*this == other) {
-            return false;
+        return !(*this == other);
+    }
+
+    ~Matrix(){
+        for (size_t i = 0; i < rows; i++) {
+            delete rows_array[i];
         }
-        return true;
+        delete[] rows_array;
     }
 
 private:
-        int rows;
-        int cols;
+        size_t rows;
+        size_t cols;
         Row **rows_array;
 };

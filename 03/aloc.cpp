@@ -22,8 +22,8 @@ int main(int argc, char **argv) {
         std::cout << "Wrong value of element after multiplying." << std::endl;
     }
 
-    for (int i = 1; i <= rows; i++) {
-        for (int j = 1; j <= cols; j++) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
             f1[i][j] = 2;
             f2[i][j] = 2;
         }
